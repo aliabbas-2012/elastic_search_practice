@@ -1,0 +1,1 @@
+sudo sh -x /opt/logstash/bin/logstash -f /etc/logstash/conf.d/logstash.conf

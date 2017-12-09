@@ -1,0 +1,169 @@
+{
+  "took" : 6,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 9125,
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "14",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "14",
+          "title" : "Nixon",
+          "year" : 1995,
+          "genre" : [
+            "Drama"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "19",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "19",
+          "title" : "Ace Ventura: When Nature Calls",
+          "year" : 1995,
+          "genre" : [
+            "Comedy"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "22",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "22",
+          "title" : "Copycat",
+          "year" : 1995,
+          "genre" : [
+            "Crime",
+            "Drama",
+            "Horror",
+            "Mystery",
+            "Thriller"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "24",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "24",
+          "title" : "Powder",
+          "year" : 1995,
+          "genre" : [
+            "Drama",
+            "Sci-Fi"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "25",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "25",
+          "title" : "Leaving Las Vegas",
+          "year" : 1995,
+          "genre" : [
+            "Drama",
+            "Romance"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "26",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "26",
+          "title" : "Othello",
+          "year" : 1995,
+          "genre" : [
+            "Drama"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "29",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "29",
+          "title" : "City of Lost Children, The",
+          "year" : 1995,
+          "genre" : [
+            "Adventure",
+            "Drama",
+            "Fantasy",
+            "Mystery",
+            "Sci-Fi"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "40",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "40",
+          "title" : "Cry, the Beloved Country",
+          "year" : 1995,
+          "genre" : [
+            "Drama"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "41",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "41",
+          "title" : "Richard III",
+          "year" : 1995,
+          "genre" : [
+            "Drama",
+            "War"
+          ]
+        }
+      },
+      {
+        "_index" : "movies",
+        "_type" : "movie",
+        "_id" : "44",
+        "_score" : 1.0,
+        "_source" : {
+          "id" : "44",
+          "title" : "Mortal Kombat",
+          "year" : 1995,
+          "genre" : [
+            "Action",
+            "Adventure",
+            "Fantasy"
+          ]
+        }
+      }
+    ]
+  }
+}
