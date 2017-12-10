@@ -26,7 +26,7 @@ curl -XPUT  127.0.0.1:9200/movies -d '
 							"type": "date",
 							"fields":{
 	                			"raw":{
-	                				"type":"string",
+	                				"type":"integer",
 	                				"index": "not_analyzed"
 	                			}
                 			}	

@@ -1,0 +1,2 @@
+sudo apt-get install zookeeperd
+wget http://www-us.apache.org/dist/kafka/1.0.0/kafka_2.11-1.0.0.tgz
