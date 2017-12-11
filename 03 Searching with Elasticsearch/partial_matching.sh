@@ -29,7 +29,7 @@ curl -XDELETE 127.0.0.1:9200/movies/
 
 #New mapping
 
-curl -XPUT  127.0.0.1:9200/movies -d '
+curl -XPUT  -H 'Content-Type: application/json'  127.0.0.1:9200/movies -d '
 { 
      "mappings": {
          "movie":  {

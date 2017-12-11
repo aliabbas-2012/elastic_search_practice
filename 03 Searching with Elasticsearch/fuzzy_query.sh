@@ -1,5 +1,5 @@
 #----------Wrong spell----------------------
-curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty' -d '
+curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty' -d '
 {
    "query":{
          "match":{
@@ -10,7 +10,7 @@ curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty' -d '
 }'
 
 
-curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
+curl -XGET  -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
 {
    "query":{
          "fuzzy":{
@@ -21,7 +21,7 @@ curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
 
 # Sustitution
 
-curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
+curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
 {
    "query":{
          "fuzzy":{
@@ -30,7 +30,7 @@ curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
    }
 }'
 #Subtraction
-curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
+curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
 {
    "query":{
          "fuzzy":{
@@ -41,7 +41,7 @@ curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
 
 #Addition
 
-curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
+curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
 {
    "query":{
          "fuzzy":{
@@ -59,3 +59,11 @@ curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty&sort=title.raw:asc' -d '
          }
    }
 }'
+
+
+curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty'  -d'
+{ "query": {
+   "prefix" : { "title" : "ki" }
+  }
+}
+'
