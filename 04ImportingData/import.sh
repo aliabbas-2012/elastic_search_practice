@@ -1,24 +1,24 @@
 #Delete
 
-curl -XDELETE 127.0.0.1:9200/movies/
+curl -XDELETE 'Content-Type: application/json' 127.0.0.1:9200/movies/
 
 #New mapping
 
-curl -XPUT  127.0.0.1:9200/movies -d '
+curl -XPUT -H 'Content-Type: application/json' '127.0.0.1:9200/movies' -d '
 { 
      "mappings": {
          "movie":  {
            "_all":{"enabled": false },
            "properties": { 
 				"id" :  {"type": "integer"},
-				"genre": {"type": "string","index": "not_analyzed"},
+				"genre": {"type": "text","index": false},
                 "title":{
-                		"type": "string",
+                		"type": "text",
                 		"analyzer": "english",
                 		"fields":{
                 			"raw":{
-                				"type":"string",
-                				"index": "not_analyzed"
+                				"type":"keyword",
+                				"index": false
                 			}
                 		}
             		},
@@ -27,7 +27,7 @@ curl -XPUT  127.0.0.1:9200/movies -d '
 							"fields":{
 	                			"raw":{
 	                				"type":"integer",
-	                				"index": "not_analyzed"
+	                				"index": false
 	                			}
                 			}	
 						}
@@ -39,4 +39,4 @@ curl -XPUT  127.0.0.1:9200/movies -d '
 
 
 #New Bulk Import
-curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
+curl -XPUT  -H 'Content-Type: application/json' '127.0.0.1:9200/_bulk?pretty' --data-binary @movies.json

@@ -39,7 +39,7 @@ curl -XPUT  127.0.0.1:9200/movies -d '
 curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
 
 
-curl -XGET 127.0.0.1:9200/movies/movie/_search?pretty -d '
+curl -XGET  -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty' -d '
 {
    "sort": [
    		{
