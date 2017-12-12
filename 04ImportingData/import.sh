@@ -14,7 +14,7 @@ curl -XPUT -H 'Content-Type: application/json' '127.0.0.1:9200/movies' -d '
 				"genre": {"type": "text","index": false},
                 "title":{
                 		"type": "text",
-                		"analyzer": "english",
+                		"analyzer": "autocomplete",
                 		"fields":{
                 			"raw":{
                 				"type":"keyword",
@@ -37,6 +37,33 @@ curl -XPUT -H 'Content-Type: application/json' '127.0.0.1:9200/movies' -d '
    
 } '
 
+# if custom analyzer exists
+curl -XPUT -H 'Content-Type: application/json'  '127.0.0.1:9200/movies/_mapping/movie?pretty' -d '
+{ 
+   "properties": { 
+                "id" :  {"type": "integer"},
+                "genre": {"type": "text","index": false},
+                "title":{
+                    "type": "text",
+                    "analyzer": "autocomplete",
+                    "fields":{
+                        "raw":{
+                            "type":"keyword",
+                            "index": false
+                        }
+                    }
+                },
+                "year": { 
+                        "type": "date",
+                        "fields":{
+                            "raw":{
+                                "type":"integer",
+                                "index": false
+                            }
+                        }   
+                }
+            }
+} '
 
 #New Bulk Import
 curl -XPUT  -H 'Content-Type: application/json' '127.0.0.1:9200/_bulk?pretty' --data-binary @movies.json

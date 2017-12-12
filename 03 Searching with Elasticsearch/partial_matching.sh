@@ -8,7 +8,7 @@ curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty' -d '
    }
 }'
 
-curl -XGET '127.0.0.1:9200/movies/movie/_search?pretty' -d '
+curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_search?pretty' -d '
 {
    "query":{
          "wildcard":{

@@ -15,11 +15,11 @@ curl -XGET -H 'Content-Type: application/json' '127.0.0.1:9200/movies/movie/_sea
 
 #New mapping
 
-curl -XDELETE 127.0.0.1:9200/movies/
+curl -XDELETE  'Content-Type: application/json'  127.0.0.1:9200/movies/
 
 #Custom analyzer
 
-curl -XPUT  127.0.0.1:9200/movies -d '
+curl -XPUT -H 'Content-Type: application/json'  127.0.0.1:9200/movies -d '
 {
    "settings":{
    		"analysis": {
