@@ -45,3 +45,5 @@ curl -XGET 127.0.0.1:9200/movies/movie/_search?pretty -d '
   }
 
 '
+
+curl -XGET 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com'
