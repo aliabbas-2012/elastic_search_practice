@@ -91,13 +91,60 @@ POST posts/post/_search
       }
     }
   },
-  "sort" : [
-        {
-            "_geo_distance" : {
-                "post_created_location" : [74,31],
-                "order" : "asc",
-                "unit" : "km"
-            }
-        }
-    ]
+
 }
+
+POST posts/post/_search
+{
+ 
+  "query": {
+      "term" : { "is_post_location" : 1 } 
+  },
+  "size": 0, 
+  "aggs":{
+    "by_district":{
+     
+      "terms": {
+        "field": "post_location.fs_location_id.keyword",
+         "size": 100
+      },
+      "aggs": {
+        "tops": {
+          "top_hits": {
+            "size": 20
+          }
+        }
+      }
+    }
+  },
+
+}
+
+POST posts/post/_search
+{
+ 
+  "query": {
+    "ids" : {
+         "values": [2,1]
+     }
+  },
+  "size": 0, 
+  "aggs":{
+    "by_district":{
+     
+      "terms": {
+        "field": "post_location.fs_location_id.keyword",
+         "size": 100
+      },
+      "aggs": {
+        "tops": {
+          "top_hits": {
+            "size": 20
+          }
+        }
+      }
+    }
+  },
+
+}
+
