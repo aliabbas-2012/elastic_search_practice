@@ -1,0 +1,260 @@
+GET /_cat/indices 
+
+PUT posts/_mapping/post
+{
+
+            "properties": {
+                "pin": {
+                    "properties": {
+                        "location": {
+                            "type": "geo_point"
+                        },
+                        "location3": {
+                            "type": "geo_point"
+                        }
+                    }
+                }
+            }
+        }
+
+POST users/_search
+POST posts/_search
+POST posts/_search
+{
+  "sort" : [
+    {
+      "post_location.location_id" : {
+          "order" : "asc"
+      }
+    }
+  ]
+}
+
+
+POST posts/_search
+{
+  "_source": ["_id","post_created_location",
+  "post_place_location","pin"], 
+  "size":3000,
+    "sort" : [
+        {
+            "_geo_distance" : {
+                "pin.location3" : [39, 87],
+                "order" : "asc",
+                "unit" : "km"
+            }
+        }
+    ]
+}
+
+POST posts/_search
+{
+   "sort": [{
+    "_geo_distance": {
+      "post_location.location": [53.551086, 9.993682],
+      "nested_path": "post_location",
+      "order": "asc"
+    }
+  }]
+}
+
+POST posts/_count
+GET posts/post/125603
+
+GET posts/_mappings
+POST posts/post/_search?size=1000
+   
+GET posts/post/72963  
+GET posts/post/125595
+
+POST posts/post/125595/_update/  
+{
+    "doc":{
+      "pin" : {
+          "location" : {
+              "lat" : 31,
+              "lon" : 74
+          },
+           "location3" : {
+              "lat" : 39,
+              "lon" : 87
+          }
+      }
+    }
+}
+POST posts/_search
+{
+  "_source": ["_id","post_created_location",
+  "post_place_location","pin"], 
+  "size":3000,
+    "sort" : [
+        {
+            "_geo_distance" : {
+                "pin1.location3" : [39, 87],
+                "order" : "asc",
+                "unit" : "km"
+            }
+        }
+    ]
+}
+
+POST posts/post/125609/_update/  
+{
+    "doc":{
+          "post_created_location" : {
+              "lat" : 31.46,
+              "lon" : 74.38
+          }
+    }
+}
+
+POST posts/_search
+{
+  "size":1000,
+    "sort" : [
+        {
+            "_geo_distance" : {
+                "post_place_location" : [31.46, 74.38],
+                "order" : "asc",
+                "unit" : "km"
+            }
+        }
+    ]
+}
+
+
+POST users/user/_search
+{
+    "filtered" : {
+        "query" : {
+            "field" : { "text" : "restaurant" }
+        },
+        "filter" : {
+            "geo_distance" : {
+                "distance" : "12km",
+                "pin.location" : {
+                    "lat" : 40,
+                    "lon" : -70
+                }
+            }
+        }
+    }
+}
+POST users/user/_search
+{
+    "size":1000,
+    "sort" : [
+        {
+            "_geo_distance" : {
+                "pin.user_location" : [31.46, 74.38],
+                "order" : "asc",
+                "unit" : "km"
+            }
+        }
+    ]
+}
+PUT users/_mapping/user
+{
+
+            "properties": {
+                "pin": {
+                    "properties": {
+                        "location1": {
+                            "type": "geo_point"
+                        }
+                    }
+                }
+            }
+        }
+POST users/user/14/_update/  
+{
+    "doc":{
+      "pin" : {
+          "location1" : {
+              "lat" : 31.46,
+              "lon" : 74.38
+          }
+      }
+    }
+}
+
+
+
+
+
+
+
+
+PUT venues
+{
+  "mappings": {
+    "sample": {
+      "properties": {
+        "body": {
+          "type": "text"
+        },
+        "place": {
+          "type": "nested",
+          "properties": {
+            "name": {
+              "type": "text"
+            },
+            "location": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+PUT venues/sample/1
+{
+  "name": "Venue #1",
+  "place": {
+    "name": "Germany",
+    "location": {
+      "lat": 53.58121,
+      "lon": 9.99121
+    }
+  }
+}
+
+PUT venues/sample/2
+{
+  "name": "Venue #2",
+  "place": {
+    "name": "fahad",
+    "location": {
+      "lat": 24.6537,
+      "lon": 46.7152
+    }
+  }
+}
+
+PUT venues/sample/3
+{
+  "name": "Venue #3",
+  "place": {
+    "name": "Lahore",
+    "location": {
+      "lat": 31.46,
+      "lon": 74.38
+    }
+  }
+}
+
+
+GET venues/_search
+{
+  "sort": [{
+    "_geo_distance": {
+      "place.location": [31.46, 74.38],
+      "nested_path": "place",
+      "order": "asc",
+      "unit" : "km"
+    }
+  }]
+}
