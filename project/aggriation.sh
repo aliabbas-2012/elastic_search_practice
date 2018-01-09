@@ -184,7 +184,8 @@ POST posts/post/_search
      
       "terms": {
         "field": "post_location.location_id",
-         "size": 100
+         "size": 100,
+         "order" : { "_count" : "asc" }
       },
       "aggs": {
         "tops": {
