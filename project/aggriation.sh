@@ -143,7 +143,7 @@ POST posts/post/_search
     "by_location":{
      
       "terms": {
-        "field": "post_location.fs_location_id.keyword",
+        "field": "post_location.location_id",
          "size": 100
       },
       "aggs": {
@@ -158,3 +158,42 @@ POST posts/post/_search
 
 }
 
+#making groups of each location_id
+POST posts/post/_search
+{
+ 
+  "query":{  
+      "bool":{  
+         "must":[  
+            {  
+               "terms":{  
+                  "post_location.location_id":[
+                     1,
+                     5,
+                     14,
+                     8625
+                  ]
+               }
+            }
+         ]
+      }
+   },
+  "size": 0, 
+  "aggs":{
+    "by_location":{
+     
+      "terms": {
+        "field": "post_location.location_id",
+         "size": 100
+      },
+      "aggs": {
+        "tops": {
+          "top_hits": {
+            "size": 20
+          }
+        }
+      }
+    }
+  }
+
+}
