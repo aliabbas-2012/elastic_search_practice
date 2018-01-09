@@ -68,7 +68,10 @@ GET posts/post/_search
                   ]
                }
             }
-         ]
+         ],
+         "filter": {
+            "match" : { "post_location.location_name" : "Arc" }
+         }
       }
    }
 }
