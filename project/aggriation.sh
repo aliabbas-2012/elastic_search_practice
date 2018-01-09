@@ -123,14 +123,24 @@ POST posts/post/_search
 POST posts/post/_search
 {
  
-  "query": {
-    "ids" : {
-         "values": [2,1]
-     }
-  },
+  "query":{  
+      "bool":{  
+         "must":[  
+            {  
+               "terms":{  
+                  "post_location.location_id":[  
+                     5,
+                     14,
+                     8625
+                  ]
+               }
+            }
+         ]
+      }
+   }
   "size": 0, 
   "aggs":{
-    "by_district":{
+    "by_location":{
      
       "terms": {
         "field": "post_location.fs_location_id.keyword",
