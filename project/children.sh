@@ -31,3 +31,26 @@ GET /posts/post/_search
         }
     }
 }
+
+
+#Nested filters
+
+POST test/_search
+{
+  "query": {
+    "nested": {
+      "path": "comments",
+      "query": {
+        "match_phrase_prefix": {
+          "comments.author" :{
+            "query":"nik"
+          }
+        }
+      },
+      "inner_hits": {
+        "_source" : false,
+        "docvalue_fields" : ["comments.author.keyword"]
+      }
+    }
+  }
+}
