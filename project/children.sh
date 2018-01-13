@@ -35,22 +35,92 @@ GET /posts/post/_search
 
 #Nested filters
 
-POST test/_search
+POST posts/_search
 {
+  "_source" : false,
   "query": {
+    
     "nested": {
-      "path": "comments",
+      "path": "boxes",
       "query": {
-        "match_phrase_prefix": {
-          "comments.author" :{
-            "query":"nik"
+        "match": {
+          "boxes.name" :{
+            "query":"beach"
           }
         }
       },
       "inner_hits": {
         "_source" : false,
-        "docvalue_fields" : ["comments.author.keyword"]
+        "docvalue_fields" : ["boxes.name.keyword"]
       }
     }
   }
+}
+
+# Should filter with has child
+GET posts/_search
+{
+    "query": {
+        "bool": {
+            "should": [
+                {
+                    "terms": {
+                        "id": [
+                            12559677,
+                            116143
+                        ]
+                    }
+                },
+                {
+                    "has_child": {
+                        "type": "boxes"
+                    }
+                }
+            ]
+        }
+    }
+}
+
+#Nested query with inner hits
+
+{
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "nested": {
+                        "path": "boxes",
+                        "query": {
+                            "match_phrase_prefix": {
+                                "boxes.name": {
+                                    "query": "fav"
+                                }
+                            }
+                        },
+                        "inner_hits": {
+                            "_source": false,
+                            "docvalue_fields": [
+                                "boxes.name.keyword"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "terms": {
+                        "id": [
+                            12559677,
+                            116143
+                        ]
+                    }
+                }
+            ],
+            "should": [
+                {
+                    "has_child": {
+                        "type": "boxes"
+                    }
+                }
+            ]
+        }
+    }
 }
