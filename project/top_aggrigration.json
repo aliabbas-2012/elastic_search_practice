@@ -1,0 +1,10 @@
+{"action": "like", "user_name": "Dana", "notification_id": "1","created_at": "2018-01-15"}
+{"action": "like", "user_name": "Dana", "notification_id": "2","created_at": "2018-01-15"}
+{"action": "like", "user_name": "Michel", "notification_id": "3","created_at": "2018-01-15"}
+{"action": "follow", "user_name": "Michel", "notification_id": "4","created_at": "2018-01-14"}
+{"action": "like", "user_name": "Michel", "notification_id": "5","created_at": "2018-01-14"}
+{"action": "like", "user_name": "Michel", "notification_id": "6","created_at": "2018-01-14"}
+{"action": "follow", "user_name": "Michel", "notification_id": "7","created_at": "2018-01-14"}
+{"action": "follow", "user_name": "Dana", "notification_id": "8","created_at": "2018-01-14"}
+{"action": "comment", "user_name": "Michel", "notification_id": "9","created_at": "2018-01-14"}
+{"action": "comment", "user_name": "Dana", "notification_id": "10","created_at": "2018-01-14"}
