@@ -51,7 +51,7 @@ GET hockey/_search
     "total_goals": {
       "script": {
         "lang": "painless",
-        "source": "HashSet hs = new HashSet();List x = doc['goals'].values; return x;"
+        "source": "HashSet hs = new HashSet();List x = new ArrayList(doc['goals'].values);List y = new ArrayList(doc['assists'].values);x.addAll(y);hs.addAll(x); x.clear();x.addAll(hs);return x"
       }
     }
   }
