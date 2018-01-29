@@ -56,3 +56,25 @@ GET hockey/_search
     }
   }
 }
+
+#Autocomplete customization
+GET /posts/post/_search
+{
+  "_source":["tag_keywords"],
+  "query": {
+      "match": {
+        "tag_keywords": {
+          "query": "ali",
+          "analyzer": "standard"
+        }
+      }
+  },
+  "script_fields": {
+        "tag_keywords_filtered": {
+            "script": {
+                "lang": "painless",
+                "source": "List x = new ArrayList();for (int i = 0; i < params['_source']['tag_keywords'].length; ++i) { String s = params['_source']['tag_keywords'][i];if(s.startsWith('ali')){ x.add(s);}} return x;"
+            }
+        }
+    }
+}
