@@ -57,6 +57,7 @@ GET hockey/_search
   }
 }
 
+
 #Autocomplete customization
 GET /posts/post/_search
 {  
@@ -83,6 +84,7 @@ GET /posts/post/_search
       }
    }
 }
+
 #Autocomplete customization v2.2 (unique)
 GET /posts/post/_search
 {  
@@ -109,3 +111,4 @@ GET /posts/post/_search
       }
    }
 }
+
