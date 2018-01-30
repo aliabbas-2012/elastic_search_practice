@@ -1,4 +1,4 @@
-doc['created'].date.setZone(org.joda.time.DateTimeZone.forID(tz)); doc['created'].date.dayOfWeek
+/uerdoc['created'].date.setZone(org.joda.time.DateTimeZone.forID(tz)); doc['created'].date.dayOfWeek
 
 GET posts/post/_search
 {

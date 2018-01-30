@@ -56,3 +56,4 @@ GET hockey/_search
     }
   }
 }
+
