@@ -112,3 +112,58 @@ GET /posts/post/_search
    }
 }
 
+ # folllowers list filterd
+GET users/user/_search
+{
+  "_source": ["username","blocked_users", 
+  "users_blocked","followings" ], 
+  "query": {
+      "bool": {
+          "must":{
+             "match":{"username":"ali"}       
+          }
+      }
+  },
+  "script_fields":{  
+      "my_followers":{  
+         "script":{  
+            "lang":"painless",
+            "source":"List x = new ArrayList(params._source['followings']);if(x.contains(params.keyword)){  return doc['id'] }",
+            "params":{  
+               "keyword": 5
+            }
+         }
+      }
+   }
+}
+
+ # filter based on followers list
+GET users/user/_search
+{
+  "_source": [
+    "username",
+    "followings"
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "username": "ali"
+          }
+        },
+        {
+          "script": {
+            "script": {
+              "source": "List x = new ArrayList(params._source['followings']); return x.contains(params.keyword)",
+              "lang": "painless",
+              "params": {
+                "keyword": 5
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
