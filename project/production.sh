@@ -26,7 +26,23 @@ curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-nod
       "bool":{
         "must":{
         "term": {
-          "user_id": 28327
+          "user_id": 2
+        }
+      } 
+    }
+  }
+}
+'
+
+curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/user/_search?pretty' -d '
+{
+  "size":1000,
+  "_source": ["id","username","is_live"],
+   "query": { 
+      "bool":{
+        "must":{
+        "term": {
+          "id": 2
         }
       } 
     }
@@ -55,3 +71,9 @@ curl -XPUT  -H 'Content-Type: application/json' 'https://vpc-production1-new-nod
 curl -XPUT  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/_settings/' -d '
 { "index" : { "max_result_window" : 500000 } }
 '
+
+# post count
+
+curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/_count?pretty'
+
+curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/_count?pretty'
