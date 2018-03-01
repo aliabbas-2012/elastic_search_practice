@@ -3,8 +3,8 @@ curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-
 curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-aymjo5evep6xo63f3wvhamc3re.us-west-2.es.amazonaws.com/users/user/18368?pretty&_source=id,is_live,followings' 
 
 
-curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-aymjo5evep6xo63f3wvhamc3re.us-west-2.es.amazonaws.com/users/user/18368?_source=followings,followers,users_blocked,blocked_users' 
-curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-aymjo5evep6xo63f3wvhamc3re.us-west-2.es.amazonaws.com/users/user/9595?_source=followings,followers,users_blocked,blocked_users' 
+curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-aymjo5evep6xo63f3wvhamc3re.us-west-2.es.amazonaws.com/users/user/18368?_source=followings,followers,users_blocked,blocked_users&pretty' 
+curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-aymjo5evep6xo63f3wvhamc3re.us-west-2.es.amazonaws.com/users/user/9595?_source=followings,followers,users_blocked,blocked_users&pretty' 
 
 
 curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-js-aymjo5evep6xo63f3wvhamc3re.us-west-2.es.amazonaws.com/posts/post/_search?pretty' -d '
