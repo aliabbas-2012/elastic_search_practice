@@ -48,7 +48,7 @@ x.addAll(hs);
 return x;
 
 //above code compresss
-List x = ctx._source.followings;HashSet hs=new HashSet();if(x==null){x=new ArrayList();} hs.addAll(x);x.clear();hs.add(params.following_id);x.addAll(hs);ctx._source.followings = x.sort();
+List x = ctx._source.followings;HashSet hs=new HashSet();if(x==null){x=new ArrayList();} hs.addAll(x);x.clear();hs.add(params.following_id);x.addAll(hs);Collections.sort(x);ctx._source.followings = x;
 
 //above vise versa
-List x = ctx._source.followers;HashSet hs=new HashSet();if(x==null){x=new ArrayList();} hs.addAll(x);x.clear();hs.add(params.follower_id);x.addAll(hs);ctx._source.followers = x.sort();
+List x = ctx._source.followers;HashSet hs=new HashSet();if(x==null){x=new ArrayList();} hs.addAll(x);x.clear();hs.add(params.follower_id);x.addAll(hs);Collections.sort(x);ctx._source.followers = x;
