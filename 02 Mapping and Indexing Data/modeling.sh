@@ -18,29 +18,31 @@ curl -XPUT 127.0.0.1:9200/_bulk/?pretty --data-binary @series.json
 #Now query
 
 curl -XGET 127.0.0.1:9200/series/film/_search?pretty -d '
-  {
-    "query": {
-	"has_parent": {
-            "type": "franchise",
-	     "query": {
-                 "match": {"title": "Star wars"}
-	      }
-        }
-     }
-  }
-
+{
+	"query": {
+		"has_parent": {
+			"type": "franchise",
+			"query": {
+				"match": {
+					"title": "Star wars"
+				}
+			}
+		}
+	}
+}
 '
 
 curl -XGET 127.0.0.1:9200/series/film/_search?pretty -d ' 
-  {
-    "query": {
+ {
+	"query": {
 		"has_child": {
-		        "type": "film",
+			"type": "film",
 			"query": {
-				"match": {"title": "The Force Awakens" }
+				"match": {
+					"title": "The Force Awakens"
+				}
 			}
-		}    
+		}
 	}
-
-   } 
+}
 '
