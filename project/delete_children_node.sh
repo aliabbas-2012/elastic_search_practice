@@ -90,8 +90,7 @@ POST posts/post/_update_by_query?refresh
 
 
 #delete post by box_id if boxes count == 0
-
-
+# First Search
 GET /posts/post/_search
 {
     "from": 0,
@@ -110,11 +109,64 @@ GET /posts/post/_search
                     }
                 },
                 {
+                    "nested": {
+                        "path": "boxes",
+                        "query": {
+                            "bool": {
+                                "must": {
+                                    "term": {
+                                        "boxes.id": 33721
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
                     "script": {
                         "script": {
                             "source": "try{if(params._source.boxes.size()==1){return params._source.boxes.get(0).id.equals(params.box_id);}else{return false;}}catch(NullPointerException e){return false}",
                             "params": {
                                 "box_id": 33721
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+
+POST posts/post/_delete_by_query
+{
+   "query": {
+        "bool": {
+            "must": [
+                {
+                    "term": {
+                        "user_id": 18368
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "boxes",
+                        "query": {
+                            "bool": {
+                                "must": {
+                                    "term": {
+                                        "boxes.id": 36404
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "script": {
+                        "script": {
+                            "source": "try{if(params._source.boxes.size()==1){return params._source.boxes.get(0).id.equals(params.box_id);}else{return false;}}catch(NullPointerException e){return false}",
+                            "params": {
+                                "box_id": 36404
                             }
                         }
                     }
