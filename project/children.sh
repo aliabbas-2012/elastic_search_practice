@@ -124,3 +124,40 @@ GET posts/_search
         }
     }
 }
+
+# Ge search post by box_id (From children)
+GET /posts/post/_search
+{
+    "from": 0,
+    "size": 1000,
+    "_source": [
+        "id",
+        "user_id",
+        "boxes"
+    ],
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "term": {
+                        "user_id": 18368
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "boxes",
+                        "query": {
+                            "bool": {
+                                "must": {
+                                    "term": {
+                                        "boxes.id": 36261
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
