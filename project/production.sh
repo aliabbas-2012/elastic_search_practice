@@ -77,3 +77,12 @@ curl -XPUT  -H 'Content-Type: application/json' 'https://vpc-production1-new-nod
 curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/_count?pretty'
 
 curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/_count?pretty'
+
+curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/user/30869?pretty&_source=id,is_live,followings' 
+
+curl -XPOST -H 'Content-Type: application/json' 'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/user/30869/_update?pretty' -d '
+{
+    "doc":{
+      "followings" : [19712]
+    }
+}'
