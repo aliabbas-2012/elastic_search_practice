@@ -84,9 +84,21 @@ curl -XGET  -H 'Content-Type: application/json' 'https://vpc-production-node-v2-
 curl -XPUT  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/users/_settings/' -d '
 { "index" : { "max_result_window" : 5000000 } }
 '
+curl -XPUT  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/posts/_settings/' -d '
+{ "index" : { "max_result_window" : 5000000 } }
+'
+
+
 #for local
 curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/users/_settings/' -d '
 { "index" : { "max_result_window" : 5000000 } }
 '
 
+curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/posts/_settings/' -d '
+{ "index" : { "max_result_window" : 5000000 } }
+'
+
+
 curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/users/_count?pretty'
+
+curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/posts/_count?pretty'
