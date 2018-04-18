@@ -1,15 +1,23 @@
 curl -XPUT 127.0.0.1:9200/series -d '
  {
 	"mappings": {
-		"franchise": {},
-		"film": {
-			"_parent": {
-				"type": "franchise"
-			}
+		"movie": {
+			"properties": {
+				"film_to_franchise":{
+					"type":"join",
+					"relations":{
+						"franchise":"film"
+					}
+				},
+		        "id": { "type": "integer" },
+		        "name": { "type": "text", "index": true }
+	    	}
 		}
 	}
 }
 '
+
+
 
 #NOW BULK Import
 
@@ -46,3 +54,4 @@ curl -XGET 127.0.0.1:9200/series/film/_search?pretty -d '
 	}
 }
 '
+
