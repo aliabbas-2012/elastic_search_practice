@@ -1,4 +1,3 @@
-Delete question_answers
 
 DELETE series
 
@@ -10,7 +9,8 @@ PUT series
         "film_to_franchise": {
           "type": "join",
           "relations": {
-            "franchise": "film"
+            "franchise": "film",
+            "film":"cast"
           }
         },
         "id": {
@@ -21,14 +21,18 @@ PUT series
           "index": true
         },
         "title":{
-           "type": "text",
-          "index": true
-        },
-        "question_text": {
           "type": "text",
           "index": true
         },
-        "answer_text": {
+        "franchise_name":{
+           "type": "text",
+          "index": true
+        },
+        "cast_name":{
+          "type": "text",
+          "index": true
+        },
+        "movie_name":{
           "type": "text",
           "index": true
         }
@@ -36,6 +40,7 @@ PUT series
     }
   }
 }
+GET /series/_search 
 POST _bulk
 { "create" : { "_index" : "series", "_type" : "movie", "_id" : "1", "routing" : 1} }
 { "id": "1", "film_to_franchise": {"name": "franchise"}, "title" : "Star Wars" }
@@ -53,50 +58,90 @@ POST _bulk
 { "id": "33493", "film_to_franchise": {"name": "film", "parent": "1"}, "title" : "Star Wars: Episode III - Revenge of the Sith", "year":"2005" , "genre":["Action", "Adventure", "Sci-Fi"] }
 { "create" : { "_index" : "series", "_type" : "movie", "_id" : "122886", "routing" : 1} }
 { "id": "122886", "film_to_franchise": {"name": "film", "parent": "1"}, "title" : "Star Wars: Episode VII - The Force Awakens", "year":"2015" , "genre":["Action", "Adventure", "Fantasy", "Sci-Fi", "IMAX"] }
-PUT series/movie/q1?refresh
+
+#put franchies
+PUT series/movie/fr1?routing=1&refresh 
 {
-  "question_text": "This is a question",
+  "id":"fr1",
+  "title": "This is my First franchise",
+  "franchise_name": "1st franchise",
   "film_to_franchise": {
     "name": "franchise" 
   }
 }
-DELETE series/movie/12
-PUT series/movie/12?routing=1&refresh 
+
+PUT series/movie/fr2?routing=1&refresh 
 {
   
+  "id":"fr2",
+  "title": "This is my 2nd franchise",
+  "franchise_name": "2nd franchise",
   "film_to_franchise": {
     "name": "franchise" 
-  },
-  "id":"12",
-  "title": "This is a ali frenchise1"
-}
-PUT series/movie/q2?refresh
-{
-  "question_text": "This is a another question",
-  "film_to_franchise": {
-    "name": "franchise"
   }
 }
-
-
-PUT series/movie/a1?routing=1&refresh 
+#put movies under franchises
+PUT series/movie/m1?routing=1&refresh
 {
-  "answer_text": "This is an answer",
-  "film_to_franchise": {
-    "name": "film", 
-    "parent": "12" 
-  }
-}
-
-PUT series/movie/a2?routing=1&refresh
-{
-  "answer_text": "This is another answer",
+  "id":"m1",
+  "title": "This is my First Movie",
+  "movie_name": "First Movie",
   "film_to_franchise": {
     "name": "film",
-    "parent": "q1"
+    "parent": "fr1"
   }
 }
+
+PUT series/movie/m2?routing=1&refresh
+{
+  "id":"m2",
+  "title": "This is my 2nd Movie",
+  "movie_name": "Second Movie",
+  "film_to_franchise": {
+    "name": "film",
+    "parent": "fr2"
+  }
+}
+PUT series/movie/m3?routing=1&refresh
+{
+  "id":"m3",
+  "title": "This is my 3rd Movie",
+  "movie_name": "Third Movie",
+  "film_to_franchise": {
+    "name": "film",
+    "parent": "fr2"
+  }
+}
+
+#put cast under movies
+PUT series/movie/c1?routing=1&refresh
+{
+  "id":"c1",
+  "title": "Reema",
+  "cast_name": "Reema Khan",
+  "film_to_franchise": {
+    "name": "cast",
+    "parent": "m1"
+  }
+}
+
+PUT series/movie/c2?routing=1&refresh
+{
+  "id":"c2",
+  "title": "Arshad Khan",
+  "cast_name": "Arshad Warsi",
+  "film_to_franchise": {
+    "name": "cast",
+    "parent": "m1"
+  }
+}
+#all searching
 GET series/movie/_search
+{
+  "size":100
+}
+#search movies under franchise
+GET series/movie/m1
 GET series/movie/_search
 {
   "query": {
@@ -104,7 +149,20 @@ GET series/movie/_search
       "parent_type": "franchise",
       "query": {
         "match": {
-          "title": "Its ali Frenchise"
+          "franchise_name": "franchise"
+        }
+      }
+    }
+  }
+}
+GET series/movie/_search
+{
+  "query": {
+    "has_parent": {
+      "parent_type": "film",
+      "query": {
+        "match": {
+          "title": "Star"
         }
       }
     }
@@ -117,12 +175,13 @@ GET series/movie/_search
       "parent_type": "franchise",
       "query": {
         "term": {
-          "id": "12"
+          "id": "fr1"
         }
       }
     }
   }
 }
+#search franchises under movie
 GET series/movie/_search
 {
   "query": {
@@ -130,10 +189,49 @@ GET series/movie/_search
       "type": "film",
       "query": {
         "term": {
-          "question_text": "This"
+          "movie_name": "Third"
         }
       }
     }
   }
 }
 
+#only franchises
+GET series/movie/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "term": {
+          "film_to_franchise": "franchise"
+        }
+      }
+    }
+  }
+}
+#only movies
+GET series/movie/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "term": {
+          "film_to_franchise": "film"
+        }
+      }
+    }
+  }
+}
+#only casts
+GET series/movie/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "term": {
+          "film_to_franchise": "cast"
+        }
+      }
+    }
+  }
+}
