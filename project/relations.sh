@@ -16,6 +16,10 @@ PUT series
         "id": {
           "type": "text"
         },
+        "is_private":{
+            "type":"boolean",
+            "index":true
+        },
         "genre":{
           "type": "text",
           "index": true
@@ -64,6 +68,7 @@ PUT series/movie/fr1?routing=1&refresh
 {
   "id":"fr1",
   "title": "This is my First franchise",
+  "is_private":false,
   "franchise_name": "1st franchise",
   "film_to_franchise": {
     "name": "franchise" 
@@ -75,6 +80,7 @@ PUT series/movie/fr2?routing=1&refresh
   
   "id":"fr2",
   "title": "This is my 2nd franchise",
+  "is_private":true,
   "franchise_name": "2nd franchise",
   "film_to_franchise": {
     "name": "franchise" 
@@ -155,14 +161,15 @@ GET series/movie/_search
     }
   }
 }
+#getting those movies whom franchise is not private
 GET series/movie/_search
 {
   "query": {
     "has_parent": {
-      "parent_type": "film",
+      "parent_type": "franchise",
       "query": {
-        "match": {
-          "title": "Star"
+        "term": {
+          "is_private": true
         }
       }
     }
@@ -174,13 +181,41 @@ GET series/movie/_search
     "has_parent": {
       "parent_type": "franchise",
       "query": {
-        "term": {
-          "id": "fr1"
+        "match": {
+          "title": "Star"
         }
       }
     }
   }
 }
+GET series/movie/_search
+{
+  "_source": ["id","title","movie_name","film_to_franchise"], 
+  "query": {
+    "has_parent": {
+      "parent_type": "franchise",
+      "inner_hits" : {
+        "_source":["title","franchise_name"]
+      },
+      "query": {
+        "terms": {
+          "id": ["fr1","fr2"]
+        }
+      }
+    }
+  }
+}
+
+GET series/movie/_search
+{
+  "query": {
+    "parent_id": {
+      "type": "film",
+      "id": "fr1"
+    }
+  }
+}
+
 #search franchises under movie
 GET series/movie/_search
 {
