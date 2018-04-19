@@ -1,15 +1,12 @@
 curl -XPUT 127.0.0.1:9200/series -d '
-     {
-	 "mappings": {
-         "franchise": {},
-         "film": {
+ {
+	"mappings": {
+        "franchise": {},
+        "film": {
 		   "_parent": {"type": "franchise"} 
 		}
-	}
-         
-     }   
-  
-'
+	}        
+ }    '
 
 #NOW BULK Import
 
