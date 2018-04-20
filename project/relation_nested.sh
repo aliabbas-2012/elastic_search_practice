@@ -16,10 +16,14 @@ GET series/movie/_search
         ]
       },
       "query": {
-        "terms": {
+        "bool": {
+          "must": {
+            "terms": {
               "id": [
-                "m1"
+                "fr1"
               ]
+            }
+          }
         },
         "has_parent": {
           "parent_type": "franchise",
