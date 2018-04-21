@@ -299,3 +299,16 @@ GET series/movie/_search
     }
   }
 }
+
+GET trending/doc/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "term": {
+          "type": "views"
+        }
+      }
+    }
+  }
+}
