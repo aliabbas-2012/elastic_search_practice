@@ -227,3 +227,54 @@ GET /posts/_search
             }
         ]
     }
+
+
+POST /posts/post/_search?size=0
+{
+  "size": 2,
+  "sort": [
+    {
+      "_geo_distance": {
+        "post_place_location": [
+          74,
+          31
+        ],
+        "order": "asc",
+        "unit": "km"
+      }
+    }
+  ],
+  "aggs": {
+    "unique": {
+      "terms": {
+        "field": "post_location.fs_location_id.keyword",
+        "size": 2,
+        "order": {
+          "max_score": "asc"
+        }
+      },
+      "aggs": {
+        "max_score": {
+          "max": {
+            "script": "doc.score"
+          }
+        },
+        "sample": {
+          "top_hits": {
+            "_source": {
+              "includes": [
+                "id",
+                "post_location.location_name",
+                "id",
+                "text_content",
+                "username",
+                "post_place_location"
+              ]
+            },
+            "size": 1
+          }
+        }
+      }
+    }
+  }
+}
