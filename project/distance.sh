@@ -278,3 +278,58 @@ POST /posts/post/_search?size=0
     }
   }
 }
+
+#-----------------------Final Distance query-------------------------------#
+
+POST /posts/post/_search?size=0
+{
+  "query": {
+    "bool": {
+      "must": {
+        "term": {
+          "is_post_location": 1
+        }
+      }
+    }
+  },
+  "aggs": {
+    "top_tags": {
+      "terms": {
+        "field": "post_location.fs_location_id.keyword",
+        "size": 40,
+        "order": {
+          "top_hit": "asc"
+        }
+      },
+      "aggs": {
+        "top_sales_hits": {
+          "top_hits": {
+            "sort": [
+              {
+                "created_at":"desc"
+              }
+            ],
+            "_source": {
+              "includes": [
+                "id",
+                "post_location.location_name"
+              ]
+            },
+            "size": 1
+          }
+        },
+        "top_hit": {
+          "min": {
+            "script": {
+              "source": "return doc['post_place_location'].planeDistance(params.lat,params.lon)",
+              "params": {
+                "lon": 74.34,
+                "lat": 31.54
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
