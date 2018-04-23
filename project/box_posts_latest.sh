@@ -46,7 +46,7 @@ GET /trending/_search
   }
 }
 
-# with dynamic data
+# with dynamic data (boxes with 9 latest posts and along with order of box with latest posts)
 GET /trending/_search
 {
   "size": 0,
