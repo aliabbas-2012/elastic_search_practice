@@ -299,3 +299,23 @@ GET series/movie/_search
     }
   }
 }
+
+
+
+GET trending/doc/_search
+
+GET trending/doc/_search
+{
+  "_source": ["id","text_content","user_id"], 
+  "query": {
+    "has_parent": {
+      "parent_type": "user",
+      
+      "query": {
+        "term": {
+          "is_live": true
+        }
+      }
+    }
+  }
+}
