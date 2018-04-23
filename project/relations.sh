@@ -302,6 +302,7 @@ GET series/movie/_search
 
 
 
+
 GET trending/doc/_search
 
 GET trending/doc/_search
@@ -314,6 +315,18 @@ GET trending/doc/_search
       "query": {
         "term": {
           "is_live": true
+        }
+      }
+    }
+  }
+}
+GET trending/doc/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "term": {
+          "type": "views"
         }
       }
     }
