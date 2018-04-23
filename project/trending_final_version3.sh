@@ -11,6 +11,11 @@ GET trending/doc/_search
     "bool": {
       "must": [
         {
+          "term":{
+            "type":"post"
+          }
+        },
+        {
           "has_parent": {
             "parent_type": "user",
             "query": {
