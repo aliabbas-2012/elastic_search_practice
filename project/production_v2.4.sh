@@ -102,3 +102,9 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/posts/_se
 curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/users/_count?pretty'
 
 curl -XGET  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/posts/_count?pretty'
+
+
+
+curl -XPUT  -H 'Content-Type: application/json' 'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/posts/_settings/' -d '
+{ "index" : { "max_result_window" : 50000000 } }
+'

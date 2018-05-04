@@ -1,12 +1,7 @@
 GET trending/doc/_search
 {
   "size": 0,
-  "_source": [
-    "id",
-    "user_id",
-    "created_at",
-    "location"
-  ],
+  "_source": false,
   "query": {
     "bool": {
       "must": [
@@ -83,7 +78,6 @@ GET trending/doc/_search
             }
           }
         }
-        
       ],
       "must_not": [
         {
@@ -144,7 +138,8 @@ GET trending/doc/_search
     "top_users": {
       "terms": {
         "field": "user_id",
-        "size": 40,
+  
+        "size":300,
         "order": {
           "location_order": "asc",
           "created_at_order":"desc"
@@ -160,10 +155,7 @@ GET trending/doc/_search
             ],
             "_source": {
               "includes": [
-                "id",
-                "user_id",
-                "created_at",
-                "location"
+                "id"
               ]
             },
             "size": 1

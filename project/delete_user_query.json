@@ -1,0 +1,114 @@
+{
+  "index": "trending",
+  "type": "doc",
+  "body": {
+    "query": {
+      "bool": {
+        "should": [
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "id": "u-29101"
+                  }
+                },
+                {
+                  "term": {
+                    "type": "user"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "object_id": "p-29101"
+                  }
+                },
+                {
+                  "term": {
+                    "type": "post"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "user_id": "u-29101"
+                  }
+                },
+                {
+                  "term": {
+                    "type": "user_likes"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "type": "likes"
+                  }
+                },
+                {
+                  "has_parent": {
+                    "parent_type": "post",
+                    "query": {
+                      "bool": {
+                        "must": [
+                          {
+                            "term": {
+                              "user_id": "u-29101"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "type": "views"
+                  }
+                },
+                {
+                  "has_parent": {
+                    "parent_type": "post",
+                    "query": {
+                      "bool": {
+                        "must": [
+                          {
+                            "term": {
+                              "user_id": "u-29101"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
