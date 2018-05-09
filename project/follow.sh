@@ -19,9 +19,14 @@ POST users/_update_by_query?conflicts=proceed
 	}
 }
 
-
 GET /trending/doc/_search
 {
+  "from": 0,
+  "size": 40,
+  "_source": [
+    "id",
+    "username"
+  ],
   "query": {
     "bool": {
       "must": [
@@ -44,7 +49,20 @@ GET /trending/doc/_search
             }
           }
         }
-      ]
+      ],
+      "filter": {
+        "multi_match": {
+          "analyzer": "standard",
+          "query": "ali",
+          "type": "phrase_prefix",
+          "fields": [
+            "username",
+            "full_name"
+          ],
+          "operator": "or",
+          "minimum_should_match": "100%"
+        }
+      }
     }
   }
 }
