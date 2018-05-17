@@ -8,7 +8,7 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
 http://172.31.15.172:3002/post/index-nearest/?long=74&lat=31&user_id=8625
 
 
-curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/post/127789'
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/post/179704?pretty'
 
 
 
@@ -40,20 +40,105 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
 } 
 '
 
-curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_count' -d '
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/doc/_search?pretty' -d '
 { 
    "query": { 
       	"bool":{
-      		"must":{
-      			"term":{
-      				"type":"views"
+      		"must":[
+      			{
+      				"term":{
+      					"type":"post"
+      				}
+      			},
+      			{
+      				"term":{
+      					"id":"p-179704"
+      				}
       			}
-      		}
+      		]
       	}        
     }
 } 
 '
 
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/doc/_search?pretty' -d '
+{ 
+   "query": { 
+      	"bool":{
+      		"must":[
+      			{
+      				"term":{
+      					"type":"post"
+      				}
+      			}
+      		]
+      	}        
+    },
+    "sort":[
+     {
+      "db_id": "desc"
+     }
+  ]
+} 
+'
+
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_search?pretty' -d '
+{ 
+   "size":4,
+   "query": { 
+      	"bool":{
+      		"must":[
+      			{
+      				"term":{
+      					"type":"views"
+      				}
+      			},
+      			{
+      				"term":{
+      					"user_id":"u-18368"
+      				}
+      			}
+      		]
+      	}        
+    },
+    "sort":[
+     	{
+      		"db_id": "desc"
+    	}
+    ]
+} 
+'
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_search?pretty' -d '
+{ 
+   "size":4,
+   "query": { 
+      	"bool":{
+      		"must":[
+      			{
+      				"term":{
+      					"type":"views"
+      				}
+      			},
+      			{
+      				"term":{
+      					"user_id":"u-18368"
+      				}
+      			},
+      			{
+      				"term":{
+      					"object_id":"p-177604"
+      				}
+      			}
+      		]
+      	}        
+    },
+    "sort":[
+     	{
+      		"db_id": "desc"
+    	}
+    ]
+} 
+'
 
 curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_count' -d '
 { 
