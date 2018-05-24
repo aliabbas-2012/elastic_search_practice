@@ -31,3 +31,4 @@ curl -XGET 127.0.0.1:9200/movies/movie/_search?pretty -d '
 	  	}
    }
 }'
+
