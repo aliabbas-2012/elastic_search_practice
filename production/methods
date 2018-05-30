@@ -1,0 +1,85 @@
+PostBox::getPostBoxAssociations
+PostAndProfileView::deletePostViews
+Like::deletePostLikesByPost
+Like::getLikesByPost
+CommentMentionUser::deleteCommentMentionsByCommentIds
+Comment::delete_comments_by_post_ids
+
+
+
+/**
+     * delete post box associations by post
+     * @param type $post_id
+     * @return type
+*/
+public static function deleteBoxesByPost($post_id) {
+    return PostBox::where('user_posts_id', '=', $post_id)->delete();
+}
+    
+/**
+     * get post boxes associations by post
+     * @param type $post_id
+     * @return type
+*/
+public static function getPostBoxAssociations($post_id=0){
+        $postBoxes = PostBox::where('user_posts_id', '=', $post_id)->get();
+        return !empty($postBoxes) ? $postBoxes->toArray() : array();
+}
+/**
+     * PostAndProfileView::deletePostViews(5)
+     * delete views by post
+     * @param type $post_id
+     * @return type
+*/
+public static function deletePostViews($post_id) {
+    return PostAndProfileView::where('post_id', '=', $post_id)->where('view_type', '=', 'post')->delete();
+}
+ /**
+     * Hard delete post likes by post
+     * @param type $post_ids
+     * @return type
+*/
+public static function deletePostLikesByPost($post_ids = array()) {
+    if (!empty($post_ids)) {
+        return Like::whereIn('liked_to', $post_ids)->where('like_type_number', '=', 1)->delete();
+    }
+    return true;
+}
+/**
+ * get likes by post
+ * @param type $post_id
+ * @return type
+ */
+public static function getLikesByPost($post_id) {
+    $result = Like::where(function($q) use($post_id) {
+                $q->where('liked_to', '=', $post_id);
+                $q->where('like_type_number', '=', 1);
+            })->get();
+    return !empty($result) ? $result->toArray() : array();
+}
+/**
+ * delete comment mentions by comments ids
+ * @param type $ids
+ * @return type
+*/
+public static function deleteCommentMentionsByCommentIds($ids=array()){
+    if(!empty($ids)){
+        return CommentMentionUser::whereIn('post_comments_id',$ids)->delete();
+    }
+    return true;
+}
+/**
+ * delete comments by post ids
+ * @param type $ids
+ * @return boolean
+*/
+public static function delete_comments_by_post_ids($ids) {
+    if(!empty($ids)){
+        return Comment::whereIn('user_post_id',$ids)->delete();
+    }
+    return true;
+}
+
+sudo a2dismod php7.0
+sudo a2enmod php5
+sudo update-alternatives --set php /usr/bin/php5
