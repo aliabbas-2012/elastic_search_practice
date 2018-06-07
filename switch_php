@@ -22,6 +22,7 @@ sudo service apache2 restart
 sudo update-alternatives --set php /usr/bin/php5.6
 
 
+
 #-------------------FROM PHP 7.0 to 7.1 ------------------------#
 sudo a2dismod php7.0
 sudo a2enmod php7.1
