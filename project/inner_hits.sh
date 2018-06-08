@@ -111,3 +111,72 @@ GET /trending/doc/_search
     }
   }
 }
+
+
+#-------------Trending Query-------------------#
+POST trending/doc/_search
+{
+  "_source": false,
+  "size": 0,
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "term": {
+                  "type": "post"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "db_id": {
+        "order": "desc"
+      }
+    }
+  ],
+  "aggs": {
+    "top-tags": {
+      "terms": {
+        "field": "id",
+        "size": 10,
+        "order": {
+          "created_at_order": "desc"
+        }
+      },
+      "aggs": {
+        "likes_count": {
+          "children": {
+            "type": "likes"
+          }
+        },
+        "liked_by_me": {
+          "children": {
+            "type": "likes"
+          },
+          "aggs":{
+            "query": {
+              "filter": {
+                "term": {
+                  "user_id": "u-18368"
+                }
+              }
+            }
+          }
+        },
+        "created_at_order": {
+          "min": {
+            "field": "created_at"
+          }
+        }
+      }
+    }
+  }
+}
