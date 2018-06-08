@@ -120,16 +120,25 @@ POST trending/doc/_search
   "size": 0,
   "query": {
     "bool": {
-      "should": [
+      "must": [
         {
-          "bool": {
-            "must": [
-              {
-                "term": {
-                  "type": "post"
+          "term": {
+            "type": "post"
+          }
+        },
+        {
+          "has_parent": {
+            "parent_type": "user",
+            "query": {
+              "bool": {
+                "must": {
+                  "parent_id": {
+                    "type": "followings",
+                    "id": "u-107"
+                  }
                 }
               }
-            ]
+            }
           }
         }
       ]
@@ -161,7 +170,7 @@ POST trending/doc/_search
           "children": {
             "type": "likes"
           },
-          "aggs":{
+          "aggs": {
             "query": {
               "filter": {
                 "term": {
