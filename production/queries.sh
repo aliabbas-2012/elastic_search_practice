@@ -7,10 +7,10 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
 
 http://172.31.15.172:3002/post/index-nearest/?long=74&lat=31&user_id=8625
 
-curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/user/32324?pretty'
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/users/user/32764?pretty'
 curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/post/183022?pretty'
 
-curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/post/184?pretty'
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/posts/post/197431?pretty'
 
 curl -XGET -H 'Content-Type: application/json'  'https://search-staging-node-v2-4-5zns7u6jcfgr4ohsvds54etdhu.us-west-2.es.amazonaws.com/_search'
 
@@ -95,7 +95,7 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
       			},
       			{
       				"term":{
-      					"user_id":"u-18368"
+      					"user_id":"u-30"
       				}
       			}
       		]
@@ -107,6 +107,62 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
     	}
     ]
 } 
+'
+
+curl -XPOST -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_delete_by_query?pretty' -d '
+{ 
+   "query": { 
+      	"bool":{
+      		"must":[
+      			{
+      				"term":{
+      					"type":"views"
+      				}
+      			},
+      			{
+      				"term":{
+      					"user_id":"u-30"
+      				}
+      			}
+      		]
+      	}        
+    }
+} 
+'
+curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_search?pretty' -d '
+{
+	"size": 3000,
+	"_source":["object_id","created_at","db_id"],
+	"query": {
+		"bool": {
+			"must": [
+				{
+					"term": {
+						"type": "views"
+					}
+				},
+				{
+					"term": {
+						"user_id": "u-30"
+					}
+				},
+				{
+					"range": {
+						"created_at": {
+							"lte": "now",
+							"gte": "now-15d/d"
+						}
+					}
+				}
+			]
+		}
+	},
+	"sort": [
+		{
+			"created_at": "desc"
+		}
+	]
+}
 '
 curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/_search?pretty' -d '
 { 
@@ -174,6 +230,9 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
     }
 } 
 '
+
+
+
 
 curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-node-js-d25dxb5wvxp5wwaih2qxwlqcve.us-west-2.es.amazonaws.com/trending/doc/_search?pretty' -d '
 { 
@@ -495,5 +554,14 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
 			}
 		}
 	}
+}
+'
+
+#Taking backups
+curl -XPUT -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/my_backup/snapshot_2?wait_for_completion=true&pretty' -d '
+{
+  "indices": "trending",
+  "ignore_unavailable": true,
+  "include_global_state": false
 }
 '

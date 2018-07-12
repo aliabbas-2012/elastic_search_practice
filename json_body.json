@@ -1,0 +1,17 @@
+let body = [
+
+        "conflicts"=>"proceed",
+        "script"=> [
+            "source"=>"HashSet hs=new HashSet();if(ctx._source.id==params.following_id){List x=ctx._source.followers;x.add(params.follower_id);hs.addAll(x)
+x.clear();x.addAll(hs);ctx._source.followers=x}",
+            "lang"=>"painless",
+            "params"=> [
+                "following_id"=>following_id,
+            ]
+        ],
+        "query"=>[
+            "terms"=>[
+                "id"=> [follower_id, following_id]
+            ]
+        ]
+]
