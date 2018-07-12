@@ -4,7 +4,83 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
   "properties": {
     "box_posts": {
       "type": "nested",
-       "index": true
+      "properties":{
+          "id": {
+            "type": "integer",
+            "index": true
+          },
+          "box_id": {
+            "type": "integer",
+            "index": true
+          },
+          "text_content": {
+            "type": "text",
+            "index": true,
+            "analyzer": "autocomplete",
+            "fields": {
+                "raw": {
+                    "type": "keyword",
+                    "index": false
+                }
+            }
+          },
+          "post_media": {
+            "dynamic": true,
+            "properties": {
+
+            }
+          },
+          "location": {
+            "dynamic": true,
+            "properties": {
+
+            }
+          },
+          "place":{
+            "type": "geo_point",
+            "index": true
+          }
+      }
+    },
+    "box_user": {
+      "type": "nested",
+      "properties":{
+          "id": {
+            "type": "integer",
+            "index": true
+          },
+          "box_id": {
+            "type": "integer",
+            "index": true
+          },
+          "username": {
+            "type": "text",
+            "index": true,
+            "analyzer": "autocomplete",
+            "fields": {
+                "raw": {
+                    "type": "keyword",
+                    "index": false
+                }
+            }
+          },
+          "full_name": {
+            "type": "text",
+            "index": true,
+            "analyzer": "autocomplete",
+            "fields": {
+                "raw": {
+                    "type": "keyword",
+                    "index": false
+                }
+            }
+          },
+          "is_private": {
+            "type": "boolean",
+            "index": true
+          }
+          
+      }
     }
   }
 }
