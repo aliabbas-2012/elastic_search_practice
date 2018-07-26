@@ -106,3 +106,14 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
 }
 
 '
+curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/_mapping/doc/' -d '
+{
+  "properties": {
+    "picture": {
+      "type": "text",
+       "index": true
+    }
+  }
+}
+
+'
