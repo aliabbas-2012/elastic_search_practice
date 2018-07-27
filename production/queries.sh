@@ -557,11 +557,3 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
 }
 '
 
-#Taking backups
-curl -XPUT -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/my_backup/snapshot_2?wait_for_completion=true&pretty' -d '
-{
-  "indices": "trending",
-  "ignore_unavailable": true,
-  "include_global_state": false
-}
-'
