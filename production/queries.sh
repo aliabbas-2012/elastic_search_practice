@@ -557,3 +557,18 @@ curl -XGET -H 'Content-Type: application/json'  'https://vpc-production1-new-nod
 }
 '
 
+curl -XGET -H 'Content-Type: application/json'  'http://172.31.26.71:9200/trending/doc/_count?pretty' -d '
+{ 
+   "query": { 
+      	"bool":{
+      		"must":[
+      			{
+      				"term":{
+      					"type":"likes"
+      				}
+      			}
+      		]
+      	}        
+    }
+} 
+'

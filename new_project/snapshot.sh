@@ -14,3 +14,4 @@ curl -XPUT -H 'Content-Type: application/json'  'http://127.0.0.1:9200/_snapshot
   "include_global_state": false
 }
 '
+
