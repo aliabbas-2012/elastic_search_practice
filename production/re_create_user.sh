@@ -108,21 +108,16 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
               "index": true
             },
             "name": {
-              "type": "integer",
+              "type": "text",
               "index": true
             },
             "status": {
-              "type": "integer",
+              "type": "text",
               "index": true
             },
-            "post_date": {
-              "type": "date",
-              "fields": {
-                "raw": {
-                  "type": "keyword",
-                  "index": false
-                }
-              }
+            "post_count": {
+              "type": "integer",
+              "index": true
             }
           }
         },
