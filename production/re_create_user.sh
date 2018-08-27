@@ -109,10 +109,16 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
             },
             "name": {
               "type": "text",
-              "index": true
+              "index": true,
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "index": false
+                }
+              }
             },
             "status": {
-              "type": "text",
+              "type": "keyword",
               "index": true
             },
             "post_count": {
@@ -121,9 +127,22 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
             }
           }
         },
-        "followings": {
-          "type": "text",
-          "index": true
+        "followers": {
+          "type": "nested",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "index": true
+            },
+            "follower_id": {
+              "type": "integer",
+              "index": true
+            },
+            "status": {
+              "type": "keyword",
+              "index": true
+            }
+          }
         },
         "my_block_list": {
           "type": "text",
