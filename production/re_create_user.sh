@@ -29,7 +29,8 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
     "user": {
       "properties": {
         "id": {
-          "type": "integer"
+          "type": "integer",
+          "index": true
         },
         "email": {
           "type": "text",
