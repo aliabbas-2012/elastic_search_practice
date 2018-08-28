@@ -1,3 +1,4 @@
+POST /users/_cache/clear
 GET users/user/_search
 {
   "_source": [
@@ -10,7 +11,7 @@ GET users/user/_search
     "location"
   ],
   "from": 0,
-  "size": 200,
+  "size": 40,
   "query": {
     "bool": {
       "must": [
@@ -68,7 +69,10 @@ GET users/user/_search
                             "must": [
                               {
                                 "terms": {
-                                  "boxes.status":["F","A"]
+                                  "boxes.status": [
+                                    "F",
+                                    "A"
+                                  ]
                                 }
                               }
                             ]
@@ -90,7 +94,7 @@ GET users/user/_search
                             "must": [
                               {
                                 "term": {
-                                  "boxes.status":"A"
+                                  "boxes.status": "A"
                                 }
                               }
                             ]
@@ -107,7 +111,6 @@ GET users/user/_search
       ]
     }
   },
-  
   "sort": [
     {
       "_geo_distance": {
