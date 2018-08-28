@@ -107,18 +107,7 @@ GET users/user/_search
       ]
     }
   },
-  "script_fields": {
-    "is_following": {
-     "script": {
-                        "lang": "painless",
-                        "source": "return params._source.followings.contains(params.user_id)",
-                        "params": {
-                            "user_id": 5
-                        }
-
-                    }
-    }
-  }, 
+  
   "sort": [
     {
       "_geo_distance": {
