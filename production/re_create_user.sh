@@ -23,7 +23,7 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
               ]
           }
       }
-  }
+    }
   },
   "mappings": {
     "user": {
@@ -34,7 +34,13 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
         },
         "email": {
           "type": "text",
-          "index": true
+          "index": true,
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "index": false
+            }
+          }
         },
         "phone": {
           "type": "text",
@@ -128,7 +134,7 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
             }
           }
         },
-        "followers": {
+        "followings": {
           "type": "nested",
           "properties": {
             "id": {
@@ -144,6 +150,10 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
               "index": true
             }
           }
+        },
+        "followers": {
+          "type": "text",
+          "index": true
         },
         "my_block_list": {
           "type": "text",

@@ -55,7 +55,7 @@ GET users/user/_search
                   "must": [
                     {
                       "terms": {
-                        "followings": [
+                        "followers": [
                           5
                         ]
                       }
