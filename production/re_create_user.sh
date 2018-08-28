@@ -141,7 +141,7 @@ curl -X PUT "localhost:9200/users" -H 'Content-Type: application/json' -d'
               "type": "integer",
               "index": true
             },
-            "follower_id": {
+            "following_id": {
               "type": "integer",
               "index": true
             },
