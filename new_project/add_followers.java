@@ -29,19 +29,24 @@ ctx._source.followers.addAll(update_followers);}else{ctx._source.followers=param
 
 // add followers in bulk
 
+
 List x = ctx._source.followers;
 List params_followers = params.pay_load.get(ctx._source.id.toString());
+List params_followers_no_int = params.pay_load.get(ctx._source.id);
 HashSet hs = new HashSet();
 if (x == null) {
  x = new ArrayList();
 }
+x.addAll(params_followers);
+if(params_followers_no_int!=null  && params_followers_no_int.size() > 0){
+	x.addAll(params_followers_no_int);	
+}
 hs.addAll(x);
 x.clear();
-hs.addAll(params_followers);
 x.addAll(hs);
 Collections.sort(x);
 ctx._source.followers = x;
 
-
-List x=ctx._source.followers;List params_followers=params.pay_load.get(ctx._source.id.toString());HashSet hs=new HashSet();if(x==null){x=new ArrayList();}
-hs.addAll(x);x.clear();hs.addAll(params_followers);x.addAll(hs);Collections.sort(x);ctx._source.followers=x;
+List x=ctx._source.followers;List params_followers=params.pay_load.get(ctx._source.id.toString());List params_followers_no_int=params.pay_load.get(ctx._source.id);HashSet hs=new HashSet();if(x==null){x=new ArrayList();}
+x.addAll(params_followers);if(params_followers_no_int!=null&&params_followers_no_int.size()>0){x.addAll(params_followers_no_int);}
+hs.addAll(x);x.clear();x.addAll(hs);Collections.sort(x);ctx._source.followers=x;
