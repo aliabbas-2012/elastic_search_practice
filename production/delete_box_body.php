@@ -38,3 +38,25 @@
 
 sudo a2dismod php7.0 ; sudo a2enmod php5 ; sudo service apache2 restart
 sudo update-alternatives --set php /usr/bin/php5
+
+
+
+curl -X POST "localhost:9200/trending/_delete_by_query" -H 'Content-Type: application/json' -d'
+{
+  "query": { 
+    "term": {
+      "type": "followings"
+    }
+  }
+}
+'
+
+curl -X POST "localhost:9200/trending/_delete_by_query" -H 'Content-Type: application/json' -d'
+{
+  "query": { 
+    "term": {
+      "type": "followers"
+    }
+  }
+}
+'
