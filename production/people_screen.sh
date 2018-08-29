@@ -254,13 +254,27 @@ GET users/user/_search
                     {
                       "terms": {
                         "followers": [
-                          18368
+                          5
                         ]
                       }
                     },
                     {
                       "nested": {
                         "path": "boxes",
+                        "inner_hits": {
+                           "sort": [
+                            {
+                              "boxes.id": {
+                                "order": "asc"
+                              }
+                            }
+                          ],
+                          "_source": [
+                            "boxes.id",
+                            "boxes.name",
+                            "boxes.status"
+                          ]
+                        },
                         "query": {
                           "bool": {
                             "must": [
@@ -286,6 +300,21 @@ GET users/user/_search
                     {
                       "nested": {
                         "path": "boxes",
+                        "inner_hits": {
+                          "sort": [
+                            {
+                              "boxes.id": {
+                                "order": "asc"
+                              }
+                            }
+                          ],
+                          "size": 20,
+                          "_source": [
+                            "boxes.id",
+                            "boxes.name",
+                            "boxes.status"
+                          ]
+                        },
                         "query": {
                           "bool": {
                             "must": [
@@ -312,10 +341,19 @@ GET users/user/_search
     "follow_status": {
       "script": {
         "lang": "painless",
-         "params":{
-           "user_id":18368
-         },
+        "params": {
+          "user_id": 5
+        },
         "source": "List followers=params._source.followers;HashSet hs=new HashSet();hs.addAll(followers);return hs.contains(params.user_id);"
+      }
+    },
+    "box_count": {
+      "script": {
+        "lang": "painless",
+        "params": {
+          "user_id": 5
+        },
+        "source": "params._source.boxes.length;"
       }
     }
   },
