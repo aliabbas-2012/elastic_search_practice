@@ -76,7 +76,6 @@ if(params.action == "A"){
 else {
 	hs.remove(params.follower_id);
 }
-
 x.clear();
 x.addAll(hs);
 Collections.sort(x);
