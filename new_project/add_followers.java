@@ -60,3 +60,27 @@ List x=ctx._source.followers;List params_followers=params.pay_load.get(ctx._sour
 x.addAll(params_followers);if(params_followers_no_int!=null&&params_followers_no_int.size()>0){x.addAll(params_followers_no_int);}
 hs.addAll(x);x.clear();x.addAll(hs);Collections.sort(x);ctx._source.followers=x;
 
+
+
+//add single followers
+
+List x = ctx._source.followers;
+HashSet hs = new HashSet();
+if (x == null) {
+ x = new ArrayList();
+}
+hs.addAll(x);
+if(params.action == "A"){
+	hs.add(params.follower_id);	
+}
+else {
+	hs.remove(params.follower_id);
+}
+
+x.clear();
+x.addAll(hs);
+Collections.sort(x);
+ctx._source.followers = x;
+
+List x=ctx._source.followers;HashSet hs=new HashSet();if(x==null){x=new ArrayList();}
+hs.addAll(x);hs.add(params.follower_id);x.clear();x.addAll(hs);Collections.sort(x);ctx._source.followers=x;
