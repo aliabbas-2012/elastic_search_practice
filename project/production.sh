@@ -88,4 +88,18 @@ curl -XPOST -H 'Content-Type: application/json' 'https://vpc-production1-new-nod
 }'
 
 
-curl -XGET  -H 'Content-Type: application/json' 'http://localhost:9200/users/user/_count' 
+curl -XGET  -H 'Content-Type: application/json' 'http://localhost:9200/users/user/_count'
+
+curl -XGET  -H 'Content-Type: application/json' 'http://localhost:9200/trending/doc/_count' -d '
+{
+   "query": { 
+      "bool":{
+        "must":{
+          "term": {
+            "type": "user"
+          }
+      } 
+    }
+  }
+}
+'
