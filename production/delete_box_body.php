@@ -60,3 +60,21 @@ curl -X POST "localhost:9200/trending/_delete_by_query" -H 'Content-Type: applic
   }
 }
 '
+curl -X POST "localhost:9200/trending/_delete_by_query" -H 'Content-Type: application/json' -d'
+{
+  "query": { 
+    "term": {
+      "type": "block"
+    }
+  }
+}
+'
+curl -X POST "localhost:9200/trending/_delete_by_query" -H 'Content-Type: application/json' -d'
+{
+  "query": { 
+    "term": {
+      "type": "blocked"
+    }
+  }
+}
+'
