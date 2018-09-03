@@ -86,3 +86,6 @@ curl -XPOST -H 'Content-Type: application/json' 'https://vpc-production1-new-nod
       "followings" : [19712]
     }
 }'
+
+
+curl -XGET  -H 'Content-Type: application/json' 'http://localhost:9200/users/user/_count' 
