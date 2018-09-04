@@ -99,3 +99,47 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
 }
 '
 
+curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/_mapping/doc/' -d '
+{
+  "properties": {
+    "box_user_data": {
+      "dynamic": true,
+      "properties": {
+            "id": {
+              "type": "integer",
+              "index": true
+            },
+            "box_id": {
+              "type": "integer",
+              "index": true
+            },
+            "username": {
+              "type": "text",
+              "index": true,
+              "fields": {
+                  "raw": {
+                      "type": "keyword",
+                      "index": false
+                  }
+              }
+            },
+            "full_name": {
+                "type": "text",
+                "index": true,
+                "fields": {
+                    "raw": {
+                        "type": "keyword",
+                        "index": false
+                    }
+                }
+            },
+            "is_private": {
+              "type": "boolean",
+              "index": true
+            }
+        }
+      }
+    }
+  }
+}
+'

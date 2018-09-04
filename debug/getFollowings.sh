@@ -70,11 +70,3 @@ curl -XGET "http://localhost:9200/users/user/_search?pretty" -H 'Content-Type: a
   }
 }'
 
-curl -XPUT "http://localhost:9200/trending/_settings" -H 'Content-Type: application/json' -d'
-{
-  "index": {
-    "blocks": {
-      "read_only_allow_delete": "false"
-    }
-  }
-}'
