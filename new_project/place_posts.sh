@@ -1,5 +1,5 @@
 GET trending/doc/_search
-{
+{  
   "size": 0,
   "_source": false,
   "query": {

@@ -13,6 +13,10 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
             "type": "integer",
             "index": true
           },
+          "user_id": {
+            "type": "integer",
+            "index": true
+          },
           "text_content": {
             "type": "text",
             "index": true,
@@ -116,4 +120,21 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
   }
 }
 
+'
+# add user_id in box_posts
+curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/_mapping/doc/' -d '
+{
+  "properties": {
+    "box_posts": {
+      "type": "nested",
+      "properties": {
+            "user_id": {
+              "type": "integer",
+              "index": true
+            }
+        }
+      }
+    }
+  }
+}
 '
