@@ -131,6 +131,9 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
             "user_id": {
               "type": "integer",
               "index": true
+            },
+            "created_location": {
+              "type": "geo_point"
             }
         }
       }
