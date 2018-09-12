@@ -83,3 +83,11 @@ ctx._source.followers = x;
 
 List x=ctx._source.followers;HashSet hs=new HashSet();if(x==null){x=new ArrayList();}
 hs.addAll(x);hs.add(params.follower_id);x.clear();x.addAll(hs);Collections.sort(x);ctx._source.followers=x;
+
+
+for (int i = 0; i < ctx._source.box_posts.size(); i++) {
+ int post_id = ctx._source.box_posts.get(i).id;
+ if (params.posts.containsKey(post_id)) {
+  ctx._source.box_posts.get(i).score = params.posts.get(post_id);
+ }
+}
