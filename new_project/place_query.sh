@@ -996,3 +996,65 @@ GET trending/doc/_search
     }
   }
 }
+
+
+curl -XGET "http://localhost:9200/trending/doc/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "type": "box"
+          }
+        },
+        {
+          "nested": {
+            "path": "box_posts",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "exists": {
+                      "field": "box_posts.created_location.lat"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "places": {
+      "nested": {
+        "path": "box_posts"
+      },
+      "aggs": {
+        "filtered": {
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "exists": {
+                    "field": "box_posts.created_location"
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "types_count": {
+              "value_count": {
+                "field": "box_posts.id"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}'

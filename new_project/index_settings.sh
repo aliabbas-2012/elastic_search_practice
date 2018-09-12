@@ -14,4 +14,5 @@ curl -XPUT "http://localhost:9200/users/_settings" -H 'Content-Type: application
       "read_only_allow_delete": "false"
     }
   }
-}'
+
+
