@@ -17,7 +17,10 @@ curl -XPUT -H 'Content-Type: application/json'  'http://127.0.0.1:9200/_snapshot
   }
 }
 '
+curl -XGET "http://localhost:9200/_snapshot/es_backups/snapshot_1/_status?pretty"
+
 #Taking backups
+curl -XPUT -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_1?wait_for_completion=true&pretty'
 curl -XPUT -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_2?wait_for_completion=true&pretty' -d '
 {
   "indices": "trending",
@@ -25,6 +28,7 @@ curl -XPUT -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot
   "include_global_state": false
 }
 '
+
 #Taking status
 curl -XGET -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_2/_stauts?'
 
@@ -32,4 +36,8 @@ curl -XGET -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot
 #Restore 
 curl -XPOST -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_2/_restore?pretty'
 
+curl -XPOST -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_1/_restore?pretty'
+
 curl -XGET -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_2/_status?pretty'
+
+curl -XGET -H 'Content-Type: application/json'  'http://localhost:9200/_snapshot/es_backups/snapshot_1/_status?pretty'

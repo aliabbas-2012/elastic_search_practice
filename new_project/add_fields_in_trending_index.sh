@@ -43,8 +43,19 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
           "place":{
             "type": "geo_point",
             "index": true
+          },
+          "user_id": {
+            "type": "integer",
+            "index": true
+          },
+          "created_location": {
+            "type": "geo_point"
+          },
+          "score": {
+            "type": "integer",
+            "index": true
           }
-      }
+        }
     },
     "box_user": {
       "type": "nested",
@@ -157,3 +168,34 @@ curl -XPUT  -H 'Content-Type: application/json' 'http://localhost:9200/trending/
   }
 }
 '
+
+
+curl -XPUT "http://localhost:9200/trending/_doc/_mapping" -H 'Content-Type: application/json' -d'
+{
+
+      "properties": {
+        "type": {
+            "type": "join",
+            "relations": {
+                "user": [
+                    "post",
+                    "user_likes",
+                    "box",
+                    "notifications",
+                    "messages",
+                    "followings",
+                    "followers",
+                    "blocked",
+                    "block",
+                    "user_views",
+                    "friend_requests"
+                ],
+                "post": ["views", "likes", "comments", "post_box", "place", "media"],
+                "box": ["posts"]
+
+            }
+        }
+      }
+    
+  
+}'
