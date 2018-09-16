@@ -29,10 +29,6 @@ PUT fayvo_test
     "doc": {
       "properties": {
         "id": {
-          "type": "keyword",
-          "index": true
-        },
-        "db_id": {
           "type": "long",
           "index": true
         },
