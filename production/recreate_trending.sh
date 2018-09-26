@@ -1,5 +1,5 @@
 curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/trending'
-curl -X PUT "localhost:9200/trending" -H 'Content-Type: application/json' -d'
+curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "index": {
@@ -127,6 +127,10 @@ curl -X PUT "localhost:9200/trending" -H 'Content-Type: application/json' -d'
             "user_id": {
               "type": "integer",
               "index": true
+            },
+            "post_box_id": {
+                "type": "integer",
+                "index": true
             },
             "text_content": {
               "type": "text",
@@ -267,12 +271,11 @@ curl -X PUT "localhost:9200/trending" -H 'Content-Type: application/json' -d'
             ],
             "box": [
               "posts"
-            ]
+            ],
+            "posts": ["posts_views"]
           }
         }
       }
     }
   }
-}}
-}
-'
+}'

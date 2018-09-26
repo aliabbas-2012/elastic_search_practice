@@ -7,7 +7,7 @@ curl -X PUT "localhost:9200/user-trending" -H 'Content-Type: application/json' -
     }
   },
   "mappings": {
-    "user": {
+    "doc": {
       "properties": {
         "id": {
           "type": "integer",
