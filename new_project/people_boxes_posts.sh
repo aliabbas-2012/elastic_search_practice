@@ -240,3 +240,228 @@ POST trending/doc/_search
     }
   }
 }
+
+
+
+#FRESH query for people
+
+
+GET /trending/_cache/clear
+GET /trending/doc/_search
+{
+  "_source": [
+    "db_id",
+    "username",
+    "is_live",
+    "picture",
+    "location"
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "type": "user"
+          }
+        },
+        {
+          "term": {
+            "is_live": true
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "has_child": {
+                        "type": "followers",
+                        "inner_hits": {
+                          "_source": [
+                            "id",
+                            "user_id",
+                            "object_id",
+                            "status"
+                          ],
+                          "size": 100
+                        },
+                        "query": {
+                          "bool": {
+                            "must": [
+                              {
+                                "term": {
+                                  "user_id": "u-34"
+                                }
+                              },
+                              {
+                                "term": {
+                                  "status": "A"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "has_child": {
+                        "type": "box",
+                        "inner_hits": {
+                          "_source": [
+                            "id",
+                            "name",
+                            "status"
+                          ],
+                          "size": 100,
+                          "sort": [
+                            {
+                              "box_posts.id": {
+                                "mode": "max",
+                                "nested": {
+                                  "path": "box_posts"
+                                },
+                                "order": "desc"
+                              }
+                            }
+                          ]
+                        },
+                        "query": {
+                          "bool": {
+                            "must": [
+                              {
+                                "terms": {
+                                  "status": ["A","F"]
+                                }
+                              },
+                              {
+                                "nested": {
+                                  "path": "box_posts",
+                                  "inner_hits": {
+                                    "_source": [
+                                      "box_posts.id",
+                                      "box_posts.post_media"
+                                    ],
+                                    "size": 4,
+                                    "sort": [
+                                      {
+                                        "box_posts.id": {
+                                          "order": "desc"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "exists": {
+                                            "field": "box_posts.id"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool":{
+                  "must":[
+                      {
+                      "has_child": {
+                        "type": "box",
+                        "inner_hits": {
+                          "_source": [
+                            "id",
+                            "name",
+                            "status"
+                          ],
+                          "size": 100,
+                          "sort": [
+                            {
+                              "box_posts.id": {
+                                "mode": "max",
+                                "nested": {
+                                  "path": "box_posts"
+                                },
+                                "order": "desc"
+                              }
+                            }
+                          ]
+                        },
+                        "query": {
+                          "bool": {
+                            "must": [
+                              {
+                                "term": {
+                                  "status": "A"
+                                }
+                              },
+                              {
+                                "nested": {
+                                  "path": "box_posts",
+                                  "inner_hits": {
+                                    "_source": [
+                                      "box_posts.id",
+                                      "box_posts.post_media"
+                                    ],
+                                    "size": 4,
+                                    "sort": [
+                                      {
+                                        "box_posts.id": {
+                                          "order": "desc"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "exists": {
+                                            "field": "box_posts.id"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }  
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "_geo_distance": {
+        "location": [
+          74,
+          31
+        ],
+        "order": "asc",
+        "unit": "km",
+        "mode": "min",
+        "distance_type": "arc"
+      }
+    }
+  ]
+}
