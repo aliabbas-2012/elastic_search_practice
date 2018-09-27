@@ -50,10 +50,11 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
           "type": "text",
           "index": true,
           "analyzer": "autocomplete",
+          "search_analyzer": "standard",
           "fields": {
             "raw": {
               "type": "keyword",
-              "index": false
+              "index": true
             }
           }
         },
@@ -61,10 +62,11 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
           "type": "text",
           "index": true,
           "analyzer": "autocomplete",
+          "search_analyzer": "standard",
           "fields": {
             "raw": {
               "type": "keyword",
-              "index": false
+              "index": true
             }
           }
         },
@@ -74,7 +76,7 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
           "fields": {
             "raw": {
               "type": "keyword",
-              "index": false
+              "index": true
             }
           }
         },
