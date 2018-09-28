@@ -142,7 +142,7 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
               "fields": {
                 "raw": {
                   "type": "keyword",
-                  "index": true
+                  "index": false
                 }
               }
             },
