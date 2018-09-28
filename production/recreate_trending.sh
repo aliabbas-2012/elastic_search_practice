@@ -51,6 +51,7 @@ curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json'
           "index": true,
           "analyzer": "autocomplete",
           "search_analyzer": "standard",
+          "fielddata": true,
           "fields": {
             "raw": {
               "type": "keyword",
@@ -63,6 +64,7 @@ curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json'
           "index": true,
           "analyzer": "autocomplete",
           "search_analyzer": "standard",
+          "fielddata": true,
           "fields": {
             "raw": {
               "type": "keyword",
