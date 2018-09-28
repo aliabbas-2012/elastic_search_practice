@@ -5,7 +5,7 @@ curl -XPUT "http://localhost:9200/trending/_settings" -H 'Content-Type: applicat
       "read_only_allow_delete": "false"
     }
   }
-}'
+}'                                    
 
 curl -XPUT "http://localhost:9200/users/_settings" -H 'Content-Type: application/json' -d'
 {
@@ -14,5 +14,6 @@ curl -XPUT "http://localhost:9200/users/_settings" -H 'Content-Type: application
       "read_only_allow_delete": "false"
     }
   }
+}'
 
 
