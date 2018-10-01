@@ -187,7 +187,7 @@ curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json'
               "fields": {
                 "raw": {
                   "type": "keyword",
-                  "index": false
+                  "index": true
                 }
               }
             },
@@ -198,7 +198,7 @@ curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json'
               "fields": {
                 "raw": {
                   "type": "keyword",
-                  "index": false
+                  "index": true
                 }
               }
             },
