@@ -208,13 +208,6 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
             }
           }
         },
-        "boxes": {
-          "type": "nested"
-        },
-        "boxes_arr": {
-          "dynamic": true,
-          "properties": {}
-        },
         "place": {
           "dynamic": true,
           "properties": {}
@@ -223,7 +216,7 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
           "type": "geo_point",
           "index": true
         },
-        "location": {
+        "created_location": {
           "type": "geo_point",
           "index": true
         },
