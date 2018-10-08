@@ -1,0 +1,113 @@
+{
+  "_source": [
+    "db_id",
+    "name",
+    "status"
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "type": "box"
+          }
+        },
+        {
+          "term": {
+            "user_id": "u-5"
+          }
+        },
+        {
+          "terms": {
+            "status": [
+              "A",
+              "F"
+            ]
+          }
+        },
+        {
+          "nested": {
+            "path": "box_posts",
+            "inner_hits": {
+              "size": 4,
+              "_source": [
+                "box_posts.id",
+                "box_posts.post_media.file_type",
+                "box_posts.post_media.bucket",
+                "box_posts.post_media.file",
+                "box_posts.post_media.file_type_number"
+              ]
+            },
+            "query": {
+              "bool": {
+                "must": []
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "box_posts.id": {
+        "order": "desc",
+        "nested": {
+          "path": "box_posts"
+        }
+      }
+    }
+  ],
+  "aggs": {
+    "posts": {
+      "nested": {
+        "path": "box_posts"
+      },
+      "aggs": {
+        "post_count": {
+          "cardinality": {
+            "field": "box_posts.id"
+          }
+        }
+      }
+    },
+    "boxes": {
+      "nested": {
+        "path": "box_posts"
+      },
+      "aggs": {
+        "top_boxes": {
+          "terms": {
+            "field": "box_posts.id",
+            "size": 40,
+            "order": {
+              "created_at_order": "desc"
+            }
+          },
+          "aggs": {
+            "top_posts": {
+              "top_hits": {
+                "_source": {
+                  "includes": [
+                    "box_posts.box_id",
+                    "box_posts.id",
+                    "box_posts.post_media.file_type",
+                    "box_posts.post_media.bucket",
+                    "box_posts.post_media.file",
+                    "box_posts.post_media.file_type_number"
+                  ]
+                },
+                "size": 1
+              }
+            },
+            "created_at_order": {
+              "max": {
+                "field": "box_posts.id"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
