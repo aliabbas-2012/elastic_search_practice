@@ -1,5 +1,5 @@
-curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/trending1'
-curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json' -d'
+curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/trending'
+curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "index": {
@@ -144,7 +144,7 @@ curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json'
               "fields": {
                 "raw": {
                   "type": "keyword",
-                  "index": false
+                  "index": true
                 }
               }
             },
@@ -256,8 +256,7 @@ curl -XPUT "http://localhost:9200/trending1" -H 'Content-Type: application/json'
               "followers",
               "blocked",
               "block",
-              "user_views",
-              "friend_requests"
+              "user_views"
             ],
             "post": [
               "views",
