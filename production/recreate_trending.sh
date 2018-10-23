@@ -256,8 +256,7 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
               "followers",
               "blocked",
               "block",
-              "user_views",
-              "friend_requests"
+              "user_views"
             ],
             "post": [
               "views",
