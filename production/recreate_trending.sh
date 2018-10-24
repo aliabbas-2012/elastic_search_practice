@@ -72,6 +72,19 @@ curl -XPUT "http://localhost:9200/trending" -H 'Content-Type: application/json' 
             }
           }
         },
+        "name": {
+            "type": "text",
+            "index": true,
+            "analyzer": "autocomplete",
+            "search_analyzer": "standard",
+            "fielddata": true,
+            "fields": {
+              "raw": {
+                "type": "keyword",
+                "index": true
+              }
+            }
+        },
         "phone": {
           "type": "text",
           "index": true,
