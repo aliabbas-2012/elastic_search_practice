@@ -1,3 +1,4 @@
+curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/people-search'
 curl -XPUT "http://localhost:9200/people-search" -H 'Content-Type: application/json' -d'
 {
 "settings": {
