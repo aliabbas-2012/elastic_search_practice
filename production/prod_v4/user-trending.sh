@@ -25,6 +25,10 @@ curl -XPUT "http://localhost:9200/user-trending" -H 'Content-Type: application/j
                     "type": "keyword",
                     "index": true
                 },
+                "type": {
+                    "type": "keyword",
+                    "index": true
+                },
                 "created_at": {
                     "type": "date",
                     "fields": {
