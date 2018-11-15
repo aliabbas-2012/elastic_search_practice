@@ -17,6 +17,14 @@ curl -XPUT "http://localhost:9200/user-trending" -H 'Content-Type: application/j
                     "type": "integer",
                     "index": true
                 },
+                "owner_id": {
+                    "type": "integer",
+                    "index": true
+                },
+                "box_id": {
+                    "type": "integer",
+                    "index": true
+                },
                 "key": {
                     "type": "keyword",
                     "index": true

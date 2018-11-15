@@ -572,3 +572,62 @@ curl -XGET -H 'Content-Type: application/json'  'http://172.31.26.71:9200/trendi
     }
 } 
 '
+curl -XPOST "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/trending/_delete_by_query" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "type": "follow"
+          }
+        },
+        {
+          "term": {
+            "db_id": 33736
+          }
+        }
+      ]
+    }
+  }
+}'
+curl -XGET "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/trending/doc/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "type": "followings"
+          }
+        },
+        {
+          "term": {
+            "user_id": "u-33736"
+          }
+        }
+      ]
+    }
+  }
+}'
+
+curl -XPOST "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/trending/_delete_by_query?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "bool": {
+      "must": [
+       
+        {
+          "term": {
+            "type": "followers"
+          }
+        },
+        {
+          "term": {
+            "db_id": 443389
+          }
+        }
+      ]
+    }
+  }
+}'
