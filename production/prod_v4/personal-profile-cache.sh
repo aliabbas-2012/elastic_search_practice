@@ -1,5 +1,5 @@
-curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/profile-boxes-cache'
-curl -XPUT "http://localhost:9200/profile-boxes-cache" -H 'Content-Type: application/json' -d'
+curl -XDELETE -H 'Content-Type: application/json'  'https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/profile-boxes-cache'
+curl -XPUT "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/profile-boxes-cache" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "index": {

@@ -1,4 +1,4 @@
-curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/user-trending-search'
+curl -XDELETE -H 'Content-Type: application/json'  'https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/user-trending-search'
 curl -XPUT "http://localhost:9200/user-trending-search" -H 'Content-Type: application/json' -d'
 {
     "settings": {
@@ -15,6 +15,10 @@ curl -XPUT "http://localhost:9200/user-trending-search" -H 'Content-Type: applic
                 },
                 "user_id": {
                     "type": "integer",
+                    "index": true
+                },
+                "sent": {
+                    "type": "boolean",
                     "index": true
                 },
                 "type": {
