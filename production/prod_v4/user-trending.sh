@@ -1,5 +1,5 @@
-curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/user-trending'
-curl -XPUT "http://localhost:9200/user-trending" -H 'Content-Type: application/json' -d'
+curl -XDELETE -H 'Content-Type: application/json'  'https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/user-trending'
+curl -XPUT "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/user-trending" -H 'Content-Type: application/json' -d'
 {
     "settings": {
         "index": {
@@ -19,6 +19,10 @@ curl -XPUT "http://localhost:9200/user-trending" -H 'Content-Type: application/j
                 },
                 "owner_id": {
                     "type": "integer",
+                    "index": true
+                },
+                "score": {
+                    "type": "double",
                     "index": true
                 },
                 "box_id": {

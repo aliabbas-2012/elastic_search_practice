@@ -1,5 +1,5 @@
-curl -XDELETE -H 'Content-Type: application/json'  'http://localhost:9200/user-places'
-curl -XPUT "http://localhost:9200/user-places" -H 'Content-Type: application/json' -d'
+curl -XDELETE -H 'Content-Type: application/json'  'https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/user-places'
+curl -XPUT "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaws.com/user-places" -H 'Content-Type: application/json' -d'
 {
     "settings": {
         "index": {
@@ -15,6 +15,10 @@ curl -XPUT "http://localhost:9200/user-places" -H 'Content-Type: application/jso
                 },
                 "user_id": {
                     "type": "integer",
+                    "index": true
+                },
+                "score": {
+                    "type": "double",
                     "index": true
                 },
                 "pin": {
