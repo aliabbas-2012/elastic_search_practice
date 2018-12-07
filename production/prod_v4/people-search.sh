@@ -25,6 +25,10 @@ curl -XPUT "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaw
                     "type": "keyword",
                     "index": true
                 },
+                "sent": {
+                    "type": "keyword",
+                    "index": true
+                },
                 "created_at": {
                     "type": "date",
                     "fields": {

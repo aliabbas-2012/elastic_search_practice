@@ -3,7 +3,7 @@ curl -X PUT "localhost:9200/user-trending" -H 'Content-Type: application/json' -
 {
   "settings": {
     "index": {
-      "max_result_window": 5000000
+      "max_result_window": 50000000
     }
   },
   "mappings": {

@@ -9,7 +9,7 @@ curl -XPUT "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaw
     "mappings": {
         "doc": {
             "properties": {
-               "id": {
+                "id": {
                     "type": "text",
                     "index": true
                 },
@@ -22,7 +22,7 @@ curl -XPUT "https://vpc-prod-v4-pq6mmy4pp4bvouevmnofq2aiq4.us-west-2.es.amazonaw
                     "index": true
                 },
                 "sent": {
-                    "type": "boolean",
+                    "type": "keyword",
                     "index": true
                 },
                 "type": {
