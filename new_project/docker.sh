@@ -36,3 +36,25 @@ sudo docker exec -i -t esdev /bin/bash
 
 # create local volume
 sudo docker volume create --name es_backups  -o mountpoint=/media/ali/es_backups -d local-persist 
+
+
+
+#----------------- Pg database -------------------------#
+
+sudo docker volume create pgdata -o mountpoint=/media/docker/es_data
+sudo docker run --name pgdev -e POSTGRES_PASSWORD=admin -p 5433:5433 -p 5432:5432 -v pgdata:/app  postgres
+
+sudo docker run --name pgdev -e POSTGRES_PASSWORD=admin -p 5434:5434 -p 5435:5435 -v pgdata:/app  postgres
+
+
+sudo docker volume create --name pgadmin4
+docker run -p 80:80 \
+-e "PGADMIN_DEFAULT_EMAIL=ali@fayvo.com" \
+-e "PGADMIN_DEFAULT_PASSWORD=admin" \
+-d dpage/pgadmin4
+
+sudo docker run --name pgadmindev  -e "PGADMIN_DEFAULT_EMAIL=ali@fayvo.com" -e "PGADMIN_DEFAULT_PASSWORD=admin" -p 5050:5050 -p 5051:5051 -v pgadmindata:/app  dpage/pgadmin4
+
+pg_dump -U ml_root -h favo-ml-new.cedry454btps.us-west-2.rds.amazonaws.com -p  fayvo_final_rds > fayvo_final_rds.sql
+
+rhA-hH7-BTz-6KK
